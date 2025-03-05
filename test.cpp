@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-std::string filename = "typing_test_results";
+std::string filename = "typing_test_results.csv";
 
 // I haven't fully implemented this feature yet
 enum test_type { QUOTE, ENG25K };
@@ -111,18 +111,25 @@ class typing_test {
     }
 };
 
+bool fileExists(const std::string& filename) {
+    std::ifstream file(filename);
+    return file.good();
+}
+
 void make_typing_test_csv(const std::string& csv_file_name) {
-    std::ofstream myFile(csv_file_name);
-    if (!myFile) {
+    std::ofstream file(csv_file_name);
+    if (!file) {
         std::cerr << "could not create csv file\n";
     }
-    myFile << "wpm,accuracy,failed attempts,abandoned,day,month,year\n";
+    file << "wpm,accuracy,failed attempts,abandoned,day,month,year modified\n";
+    file.close();
 }
 
 int main() {
     typing_test tt;
-    // if this is your first time running the code run the next line
-    make_typing_test_csv(filename);
+    if (!fileExists(filename)) {
+        make_typing_test_csv(filename); 
+    }
     tt.test_series(filename);
     return 0;
 }
