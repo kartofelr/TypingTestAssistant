@@ -30,10 +30,10 @@ class typing_test {
         std::tm* fdate = std::localtime(&date);
         std::strftime(output, 9, "%D", fdate);
         std::cout << "wpm: " << std::fixed << std::setprecision(1) << wpm
-                  << ", accuracy: " << std::setprecision(2) << accuracy
-                  << "\nfailed attempts: " << failed_attempts
-                  << " abandoned ? -> " << abandoned << "\ndate : " << output
-                  << std::endl;
+                  << "           | accuracy: " << std::setprecision(2)
+                  << accuracy << "\nfailed attempts: " << failed_attempts
+                  << " | abandoned ? -> " << abandoned << "\ndate : " << output
+                  << "\n";
     }
 
     // to store the tests in a text file, we will need a condensed format, which
@@ -58,6 +58,9 @@ class typing_test {
         file.open(csv_file_name, std::ios::out | std::ios::app);
         file << test_to_string();
         file.close();
+        std::cout << "-test saved-\nPerformance :\n";
+        print_test();
+        std::cout << '\n';
     }
 
     void start_test() {
@@ -70,7 +73,8 @@ class typing_test {
             switch (input) {
                 case 1:
                     add_attempt();
-                    std::cout << "attempt : " << failed_attempts << std::endl;
+                    // std::cout << "attempt : " << failed_attempts <<
+                    // std::endl;
                     break;
                 case 2:
                     abandoned = true;
@@ -128,7 +132,7 @@ void make_typing_test_csv(const std::string& csv_file_name) {
 int main() {
     typing_test tt;
     if (!fileExists(filename)) {
-        make_typing_test_csv(filename); 
+        make_typing_test_csv(filename);
     }
     tt.test_series(filename);
     return 0;
