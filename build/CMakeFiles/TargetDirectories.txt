@@ -1,3 +1,0 @@
-/home/henry/Code/monkeytype/build/CMakeFiles/test.dir
-/home/henry/Code/monkeytype/build/CMakeFiles/edit_cache.dir
-/home/henry/Code/monkeytype/build/CMakeFiles/rebuild_cache.dir
